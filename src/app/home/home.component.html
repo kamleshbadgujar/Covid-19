@@ -40,7 +40,7 @@
                 [resizableColumns]="paginator.isResizable" dataKey="state">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="width: 3em"></th>
+                        <th style="width: 0.3em"></th>
                         <th *ngFor="let col of columns" [style]="col.style">
                             {{col.header}}
                             <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->

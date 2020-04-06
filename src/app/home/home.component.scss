@@ -6,7 +6,6 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    overflow: hidden;
   }
 
   .layout-padding {
@@ -169,4 +168,24 @@
       float: none;
       width: 100%;
     }
+  }
+
+
+  body .ui-table .ui-table-tbody > tr > td {
+
+    }
+
+    .ui-table table {
+      border-collapse: separate;
+      border-spacing: 4px;
+    }
+
+    body .ui-table .ui-table-thead > tr > th {
+      border-radius: 6px;
+      border: none;
+    }
+
+    body .ui-table .ui-table-tbody > tr > td {
+      border: none;
+      border-radius: 6px;
   }

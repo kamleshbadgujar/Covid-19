@@ -1,14 +1,17 @@
+import { covid19Data } from 'src/assets/json/covid19Data.json';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { HomeService } from './home.service';
 import { Observable, Subscription, of, BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
+import { Covid19Data, DistrictData } from './home.interface';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class HomeComponent implements OnInit {
@@ -19,7 +22,7 @@ export class HomeComponent implements OnInit {
   public covid19DisplayData: any;
   public districtWiseData: any;
   public lastUpdatedDate: string;
-  public transformedDistrictWiseData = [];
+  public transformedDistrictWiseData: Array<DistrictData> = [];
   public paginator = {
     enable: false,
     isResizable: true,
@@ -37,24 +40,30 @@ export class HomeComponent implements OnInit {
   }
 
   public getCovidData() {
-    this.homeService.getCovid19Data().subscribe((data) => {
+    this.paginator.isLoading = true;
+    this.homeService.getCovid19Data().subscribe((data: Covid19Data) => {
       if (data !== null) {
-        this.covid19Data = data['statewise'];
+        this.paginator.isLoading = false;
+        this.covid19Data = data.statewise;
         this.lastUpdatedOn();
         this.covid19DisplayData = this.covid19Data.splice(1, this.covid19Data.length - 1);
       }
     }, (error) => {
+      this.paginator.isLoading = false;
       console.log(error);
     });
   }
 
   public getDistrictWiseData() {
+    this.paginator.isLoading = true;
     this.homeService.getDistrictWiseData().subscribe((data) => {
       if (data !== null) {
+        this.paginator.isLoading = false;
         this.districtWiseData = data;
         this.transformDistrictWiseData(this.districtWiseData);
       }
     }, (error) => {
+      this.paginator.isLoading = false;
       console.log(error);
     });
   }
