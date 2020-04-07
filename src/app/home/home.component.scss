@@ -78,8 +78,6 @@
   .navbar {
     overflow: hidden;
     background-color: white;
-    position: sticky;
-    position: -webkit-sticky;
     text-align: left;
     top: 0;
     justify-content: left;
@@ -170,22 +168,25 @@
     }
   }
 
+  .ui-table table {
+    border-collapse: separate;
+    border-spacing: 4px;
+  }
+
+  body .ui-table .ui-table-thead > tr > th {
+    border-radius: 6px;
+		border: none;
+		position: sticky;
+		top: 0;
+  }
 
   body .ui-table .ui-table-tbody > tr > td {
+    border: none;
+		border-radius: 6px;
+	}
 
-    }
+	.ui-table-resizable>.ui-table-wrapper {
+		overflow-x: initial !important;
+	}
 
-    .ui-table table {
-      border-collapse: separate;
-      border-spacing: 4px;
-    }
 
-    body .ui-table .ui-table-thead > tr > th {
-      border-radius: 6px;
-      border: none;
-    }
-
-    body .ui-table .ui-table-tbody > tr > td {
-      border: none;
-      border-radius: 6px;
-  }

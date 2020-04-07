@@ -5,7 +5,7 @@ import { TableModule } from 'primeng/table';
 import { HomeService } from './home.service';
 import { Observable, Subscription, of, BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
-import { Covid19Data, DistrictData } from './home.interface';
+import { Covid19Data, DistrictData, StateWiseCases } from './home.interface';
 
 @Component({
   selector: 'app-home',
@@ -45,8 +45,12 @@ export class HomeComponent implements OnInit {
       if (data !== null) {
         this.paginator.isLoading = false;
         this.covid19Data = data.statewise;
+        [this.covid19Data[0], this.covid19Data[this.covid19Data.length - 1]] =
+        [this.covid19Data[this.covid19Data.length - 1], this.covid19Data[0]];
         this.lastUpdatedOn();
-        this.covid19DisplayData = this.covid19Data.splice(1, this.covid19Data.length - 1);
+        this.covid19DisplayData = this.covid19Data.filter((cases: StateWiseCases) => {
+            return (parseInt(cases.confirmed, 10) !== 0);
+        });
       }
     }, (error) => {
       this.paginator.isLoading = false;

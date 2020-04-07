@@ -22,14 +22,14 @@
     <div class="row adjust-width">
         <div class="confirmed-text">
             <h4>Confirmed Cases</h4>
-            <h1>{{ covid19Data[0].confirmed }}</h1>
+            <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].confirmed : '' }}</h1>
             <h6> Last updated on {{   lastUpdatedDate  }} </h6>
         </div>
     </div>
     <div class="row adjust-width">
         <div class="active-text">
             <h4>Active Cases</h4>
-            <h1>{{ covid19Data[0].active }} </h1>
+            <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].active : '' }} </h1>
         </div>
     </div>
 <div class="container-fluid">
