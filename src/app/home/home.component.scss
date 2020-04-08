@@ -97,8 +97,6 @@
     text-decoration: none;
   }
   
-
-  
   /* Change color on hover */
   .navbar a:hover {
     background-color: #ddd;
@@ -110,38 +108,6 @@
   //   background-color: #666;
   //   color: white;
   // }
-  
-  /* Column container */
-  .row {  
-    display: -ms-flexbox; /* IE10 */
-    display: flex;
-    -ms-flex-wrap: wrap; /* IE10 */
-    flex-wrap: wrap;
-  }
-  
-  /* Create two unequal columns that sits next to each other */
-  /* Sidebar/left column */
-  .side {
-    -ms-flex: 30%; /* IE10 */
-    flex: 30%;
-    background-color: #f1f1f1;
-    padding: 20px;
-  }
-  
-  /* Main column */
-  .main {   
-    -ms-flex: 70%; /* IE10 */
-    flex: 70%;
-    background-color: white;
-    padding: 20px;
-  }
-  
-  /* Fake image, just for this example */
-  .fakeimg {
-    background-color: #aaa;
-    width: 100%;
-    padding: 20px;
-  }
   
   /* Footer */
   .footer {
@@ -205,15 +171,38 @@
     border-radius: 6px;
 		border: none;
 		position: sticky;
-		top: 0;
+    top: 0;
+    background-color: #e8e8e8;
   }
 
   body .ui-table .ui-table-tbody > tr > td {
     border: none;
-		border-radius: 6px;
+    border-radius: 6px;
+    padding: 0px;
 	}
 
 	.ui-table-resizable>.ui-table-wrapper {
 		overflow-x: initial !important;
   }
+
+  body a {
+    color: #333333;
+  }
+
+  body .pi {
+    font-size: 0.85em;
+  }
   
+  .total-field {
+    font-weight: bolder;
+    text-transform: uppercase !important;
+    pointer-events: none;
+  }
+
+  .cursor {
+    cursor: pointer;
+  }
+
+  .ui g {
+    margin-left: 20px !important;
+  }
