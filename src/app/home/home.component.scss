@@ -8,9 +8,13 @@
     margin: 0;
   }
 
-  .layout-padding {
-    padding: 10px 40px 40px 40px;
+  .padding-20 {
+    padding: 20px;
   }
+
+  // .layout-padding {
+  //   padding: 10px 40px 40px 40px;
+  // }
   
   /* Header/logo Title */
   // .header {
@@ -168,6 +172,30 @@
     }
   }
 
+  @media screen and (max-width: 700px) {
+    .row {   
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    .ui-widget, .ui-widget * {
+      font-size: 7px;
+    }
+  }
+
+  @media screen and (max-width: 430px) {
+    .ui-widget, .ui-widget * {
+      font-size: 7px;
+    }
+  }
+
+  @media screen and (min-width: 700px) and (max-width: 1030px) {
+    .ui-widget, .ui-widget * {
+      font-size: 8px;
+    }
+  }
+
   .ui-table table {
     border-collapse: separate;
     border-spacing: 4px;
@@ -187,6 +215,5 @@
 
 	.ui-table-resizable>.ui-table-wrapper {
 		overflow-x: initial !important;
-	}
-
-
+  }
+  

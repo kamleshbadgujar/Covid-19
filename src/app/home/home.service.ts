@@ -14,19 +14,19 @@ export class HomeService {
   public getGridColumns() {
     const columns = [
       {
-        field: 'state', header: 'STATE/UT', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'state', header: 'STATE/UT', style: { width: '50px', 'min-width': '30px', 'max-width': '100px'}
       },
       {
-        field: 'confirmed', header: 'CONFIRMED', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'confirmed', header: 'CONFIRMED', style: { width: '50px', 'min-width': '10px', 'max-width': '100px'}
       },
       {
-        field: 'active', header: 'ACTIVE', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'active', header: 'ACTIVE', style: { width: '50px', 'min-width': '10px', 'max-width': '100px'}
       },
       {
-        field: 'recovered', header: 'RECOVERED', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'recovered', header: 'RECOVERED', style: { width: '50px', 'min-width': '10px', 'max-width': '100px'}
       },
       {
-        field: 'deaths', header: 'Deaths', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'deaths', header: 'DEATHS', style: { width: '50px', 'min-width': '10px', 'max-width': '100px'}
       },
     ];
     return columns;
@@ -35,10 +35,10 @@ export class HomeService {
   public getTreeTableColumns() {
     const columns = [
       {
-        field: 'district', header: 'DISTRICT', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'district', header: 'DISTRICT', style: { width: '75px', 'min-width': '75px', 'max-width': '100px'}
       },
       {
-        field: 'confirmed', header: 'CONFIRMED', style: { width: '75px', 'min-width': '25px', 'max-width': '100px'}
+        field: 'confirmed', header: 'CONFIRMED', style: { width: '75px', 'min-width': '75px', 'max-width': '100px'}
       }
     ];
     return columns;

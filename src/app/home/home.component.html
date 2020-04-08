@@ -8,99 +8,101 @@
 </head>
 
 <body>
-<div class="layout-padding container-fluid">
-    <div class="navbar">
-        <a href="#" class="active">Home</a>
-        <a href="#">Developer</a>
-    </div>
-    <div class="row adjust-width">
-        <div class="header-text">
-            <h1>India Covid-19 Tracker</h1>
-            <p>Inspired by <b> <a target="blank" href="https://www.covid19india.org/"> Covid19 India </a></b></p>
+    <div class="padding-20">
+        <div class="navbar">
+            <a href="#" class="active">Home</a>
+            <a href="#">Developer</a>
+        </div>
+        <div class="row adjust-width">
+            <div class="header-text">
+                <h1>India Covid-19 Tracker</h1>
+                <p>Inspired by <b> <a target="blank" href="https://www.covid19india.org/"> Covid19 India </a></b></p>
+            </div>
+        </div>
+        <div class="row adjust-width">
+            <div class="confirmed-text">
+                <h4>Confirmed Cases</h4>
+                <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].confirmed : '' }}</h1>
+                <h6> Last updated on {{   lastUpdatedDate  }} </h6>
+            </div>
+        </div>
+        <div class="row adjust-width">
+            <div class="active-text">
+                <h4>Active Cases</h4>
+                <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].active : '' }} </h1>
+            </div>
         </div>
     </div>
-    <div class="row adjust-width">
-        <div class="confirmed-text">
-            <h4>Confirmed Cases</h4>
-            <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].confirmed : '' }}</h1>
-            <h6> Last updated on {{   lastUpdatedDate  }} </h6>
-        </div>
-    </div>
-    <div class="row adjust-width">
-        <div class="active-text">
-            <h4>Active Cases</h4>
-            <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].active : '' }} </h1>
-        </div>
-    </div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md 6">
-            <p-table [columns]="gridColumns" [value]="covid19DisplayData" [lazy]="paginator.isLazyEnabled"
-                (onLazyLoad)="onLazyLoad($event)" [paginator]="paginator.enable" [loading]="paginator.isLoading"
-                [resizableColumns]="paginator.isResizable" dataKey="state">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th style="width: 0.3em"></th>
-                        <th *ngFor="let col of columns" [style]="col.style">
-                            {{col.header}}
-                            <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"
-                    let-expanded="expanded">
-                    <tr>
-                        <td>
-                            <span *ngIf="rowData.confirmed > 0">
-                            <a href="#" [pRowToggler]="rowData">
-                                <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                            </a>
-                        </span>
-                        </td>
-                        <td *ngFor="let col of columns">
-                            <span>
-                                {{rowData[col.field]}}
-                            </span>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
-                    <tr>
-                        <td [attr.colspan]="columns.length - 2">
-                            <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-                                <p-table [columns]="treeTableColumns" [value]="transformedDistrictWiseData"
-                                    [lazy]="paginator.isLazyEnabled" (onLazyLoad)="onLazyLoad($event)"
-                                    [paginator]="paginator.enable" [loading]="paginator.isLoading"
-                                    [resizableColumns]="paginator.isResizable">
-                                    <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns" [style]="col.style">
-                            {{col.header}}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-treeData let-columns="columns" let-index="rowIndex">
-                    <tr *ngIf="rowData.state === treeData.state">
-                        <td *ngFor="let col of columns" [style]="col.style">
-                            <span>
-                                {{ treeData[col.field] }}
-                            </span>
-                        </td>
-                    </tr>
-                </ng-template>
+    <div class="padding-20">
+        <div class="row">
+            <div class="col-md 6">
+                <p-table [columns]="gridColumns" [value]="covid19DisplayData" [lazy]="paginator.isLazyEnabled"
+                    (onLazyLoad)="onLazyLoad($event)" [paginator]="paginator.enable" [loading]="paginator.isLoading"
+                    [resizableColumns]="paginator.isResizable" dataKey="state">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 0.3em"></th>
+                            <th *ngFor="let col of columns" [style]="col.style">
+                                <span>
+                                    {{col.header}}
+                                </span>
+                                <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"
+                        let-expanded="expanded">
+                        <tr>
+                            <td>
+                                <span *ngIf="rowData.confirmed > 0">
+                                    <a href="#" [pRowToggler]="rowData">
+                                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                                    </a>
+                                </span>
+                            </td>
+                            <td *ngFor="let col of columns">
+                                <span class="">
+                                    {{rowData[col.field]}}
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+                        <tr>
+                            <td [attr.colspan]="columns.length">
+                                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                                    <p-table [columns]="treeTableColumns" [value]="transformedDistrictWiseData"
+                                        [lazy]="paginator.isLazyEnabled" (onLazyLoad)="onLazyLoad($event)"
+                                        [paginator]="paginator.enable" [loading]="paginator.isLoading"
+                                        [resizableColumns]="paginator.isResizable">
+                                        <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [style]="col.style">
+                                {{col.header}}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-treeData let-columns="columns" let-index="rowIndex">
+                        <tr *ngIf="rowData.state === treeData.state">
+                            <td *ngFor="let col of columns" [style]="col.style">
+                                <span>
+                                    {{ treeData[col.field] }}
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            </td>
+            </tr>
+            </ng-template>
             </p-table>
         </div>
-        </td>
-        </tr>
-        </ng-template>
-        </p-table>
-    </div>
-    <div class="col-md 6">
+        <div class="col-md 6">
 
+        </div>
     </div>
     </div>
-    </div>
-</div>
 </body>
 
 </html>
