@@ -38,7 +38,7 @@
             <div class="col-md 6">
                 <p-table [columns]="gridColumns" [value]="covid19DisplayData" [lazy]="paginator.isLazyEnabled"
                     (onLazyLoad)="onLazyLoad($event)" [paginator]="paginator.enable" [loading]="paginator.isLoading"
-                    [resizableColumns]="paginator.isResizable" dataKey="state">
+                    [resizableColumns]="paginator.isResizable" dataKey="state" [rowHover]="true">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns" [ngStyle]="col.style">
@@ -51,7 +51,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"
                         let-expanded="expanded"> 
-                        <tr>
+                        <tr class="ui-selectable-row">
                             <td *ngFor="let col of columns" [ngClass]="{'total-field' : index == covid19DisplayData.length - 1}" [ngStyle]="col.style" >  
                                 <div [ngClass]="{'cursor' : index !== covid19DisplayData.length - 1}" [pRowToggler]="rowData"> 
                                 <span *ngIf="col.field === 'blank' && index !== covid19DisplayData.length - 1">

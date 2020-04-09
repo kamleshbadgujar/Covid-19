@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   lastUpdatedOn() {
-  this.lastUpdatedDate = moment(this.covid19Data[0].lastupdatedtime, 'DD/MM/YYYY, h:mm:ss a').format('Do MMMM YYYY, h:mm:ss a');
+  this.lastUpdatedDate = moment(this.covid19Data[this.covid19Data.length - 1].lastupdatedtime, 'DD/MM/YYYY, h:mm:ss a').format('Do MMMM YYYY, h:mm:ss a');
   }
 
   onLazyLoad($event) {
