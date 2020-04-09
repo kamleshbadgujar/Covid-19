@@ -14,6 +14,9 @@ export class HomeService {
   public getGridColumns() {
     const columns = [
       {
+        field: 'blank', header: '', style: { width: '2%', 'text-align': 'right'}
+      },
+      {
         field: 'state', header: 'STATE/UT', style: { width: '50px', 'min-width': '30px', 'max-width': '100px'}
       },
       {

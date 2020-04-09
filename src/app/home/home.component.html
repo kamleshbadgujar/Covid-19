@@ -38,11 +38,10 @@
             <div class="col-md 6">
                 <p-table [columns]="gridColumns" [value]="covid19DisplayData" [lazy]="paginator.isLazyEnabled"
                     (onLazyLoad)="onLazyLoad($event)" [paginator]="paginator.enable" [loading]="paginator.isLoading"
-                    [resizableColumns]="paginator.isResizable" dataKey="state">
+                    [resizableColumns]="paginator.isResizable" dataKey="state" [rowHover]="true">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
-                            <th style="width: 0.3em"></th>
-                            <th *ngFor="let col of columns" [style]="col.style">
+                            <th *ngFor="let col of columns" [ngStyle]="col.style">
                                 <span>
                                     {{col.header}}
                                 </span>
@@ -51,25 +50,23 @@
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"
-                        let-expanded="expanded">
-                        <tr>
-                            <td>
-                                <span *ngIf="rowData.confirmed > 0">
-                                    <a href="#" [pRowToggler]="rowData">
-                                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                                    </a>
-                                </span>
-                            </td>
-                            <td *ngFor="let col of columns">
-                                <span class="">
+                        let-expanded="expanded"> 
+                        <tr class="ui-selectable-row">
+                            <td *ngFor="let col of columns" [ngClass]="{'total-field' : index == covid19DisplayData.length - 1}" [ngStyle]="col.style" >  
+                                <div [ngClass]="{'cursor' : index !== covid19DisplayData.length - 1}" [pRowToggler]="rowData"> 
+                                <span *ngIf="col.field === 'blank' && index !== covid19DisplayData.length - 1">
+                                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                                    </span>
+                                <span>
                                     {{rowData[col.field]}}
                                 </span>
+                            </div>
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
                         <tr>
-                            <td [attr.colspan]="columns.length">
+                            <td [attr.colspan]="columns.length - 1">
                                 <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
                                     <p-table [columns]="treeTableColumns" [value]="transformedDistrictWiseData"
                                         [lazy]="paginator.isLazyEnabled" (onLazyLoad)="onLazyLoad($event)"
