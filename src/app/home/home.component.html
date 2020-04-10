@@ -96,8 +96,10 @@
             </p-table>
         </div>
         <div class="col-md 6">
-
+            <div class="mrg-top">
+            <p-chart #lineChart type="line" [data]="lineChartData" [options]="options"></p-chart>
         </div>
+    </div>
     </div>
     </div>
 </body>

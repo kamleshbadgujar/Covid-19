@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { TableModule } from 'primeng/table';
 import { HomeService } from './home/home.service';
 import { FormsModule } from '@angular/forms';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     TableModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartModule
   ],
   providers: [HomeService],
   bootstrap: [AppComponent]

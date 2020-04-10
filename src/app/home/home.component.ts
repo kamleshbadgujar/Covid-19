@@ -1,11 +1,12 @@
 import { covid19Data } from 'src/assets/json/covid19Data.json';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, HostListener } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { HomeService } from './home.service';
 import { Observable, Subscription, of, BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
-import { Covid19Data, DistrictData, StateWiseCases } from './home.interface';
+import { ChartModule } from 'primeng/chart';
+import { Covid19Data, DistrictData, StateWiseCases, CasesData } from './home.interface';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,11 @@ export class HomeComponent implements OnInit {
   public districtWiseData: any;
   public lastUpdatedDate: string;
   public transformedDistrictWiseData: Array<DistrictData> = [];
+  public lineChartData: any;
+  public chartData: Array<CasesData>;
+  public innerWidth: number;
+  public options: any;
+  @ViewChild('lineChart') lineChart: any;
   public paginator = {
     enable: false,
     isResizable: true,
@@ -30,24 +36,55 @@ export class HomeComponent implements OnInit {
     isLazyEnabled: true,
     isLoading: false
   };
-  constructor(private homeService: HomeService) { }
+
+  constructor(private homeService: HomeService) {
+    this.innerWidth = window.innerWidth;
+   }
 
   ngOnInit(): void {
     this.gridColumns = this.homeService.getGridColumns();
     this.treeTableColumns = this.homeService.getTreeTableColumns();
+    this.initializeCharts();
     this.getCovidData();
     this.getDistrictWiseData();
   }
 
-  public getCovidData() {
+  initializeCharts(): void {
+    this.lineChartData = {
+      labels: [],
+      datasets: [
+        {
+        label: 'Total Confirmed',
+        fill: false,
+        borderColor: '#4bc0c0',
+        data: []
+      }
+    ]
+  };
+    this.options = {
+      title: {
+        display: false,
+        text: 'My Title',
+        fontSize: 16
+    },
+      legend: {
+        display: false,
+        position: 'bottom'
+      }
+    };
+  }
+
+  public getCovidData(): void {
     this.paginator.isLoading = true;
     this.homeService.getCovid19Data().subscribe((data: Covid19Data) => {
       if (data !== null) {
         this.paginator.isLoading = false;
         this.covid19Data = data.statewise;
+        this.chartData = data.cases_time_series;
         [this.covid19Data[0], this.covid19Data[this.covid19Data.length - 1]] =
         [this.covid19Data[this.covid19Data.length - 1], this.covid19Data[0]];
         this.lastUpdatedOn();
+        this.prepareChartsData();
         this.covid19DisplayData = this.covid19Data.filter((cases: StateWiseCases) => {
             return (parseInt(cases.confirmed, 10) !== 0);
         });
@@ -56,6 +93,20 @@ export class HomeComponent implements OnInit {
       this.paginator.isLoading = false;
       console.log(error);
     });
+  }
+
+  prepareChartsData() {
+    if (this.chartData && this.chartData.length > 0) {
+      const tempData = this.chartData.slice(this.chartData.length - 31, this.chartData.length);
+      tempData.forEach(element => {
+        this.lineChartData.labels.push(element.date);
+        this.lineChartData.datasets[0].data.push(parseInt(element.totalconfirmed, 10));
+      });
+      this.lineChart.refresh();
+      if (this.innerWidth <= 475) {
+        this.lineChart.chart.height = 170;
+      }
+    }
   }
 
   public getDistrictWiseData() {

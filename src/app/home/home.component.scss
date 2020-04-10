@@ -206,3 +206,14 @@
   .ui g {
     margin-left: 20px !important;
   }
+
+  .chart-styles {
+    width: 50vw;
+    height: 50vh;
+  }
+
+  @media screen and (max-width: 475px) {
+  .mrg-top {
+    margin-top: 20px;
+  }
+}
