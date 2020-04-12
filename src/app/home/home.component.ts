@@ -12,13 +12,18 @@ import { Covid19Data, DistrictData, StateWiseCases, CasesData } from './home.int
 
 export class HomeComponent implements OnInit {
 
+  /* colums */
   public gridColumns: any;
   public treeTableColumns: any;
+
+   /* Data Variables */
   public covid19Data: any;
   public covid19DisplayData: any;
   public districtWiseData: any;
   public lastUpdatedDate: string;
   public transformedDistrictWiseData: Array<DistrictData> = [];
+
+  /* CSS Related Variables */
   public lineChartData: any;
   public chartData: Array<CasesData>;
   public innerWidth: number;
@@ -46,6 +51,9 @@ export class HomeComponent implements OnInit {
     this.getDistrictWiseData();
   }
 
+  /**
+   * Initializes and sets CSS for charts
+   */
   initializeCharts(): void {
     this.buildCustomTooltip();
     this.lineChartData = {
@@ -64,9 +72,10 @@ export class HomeComponent implements OnInit {
 
     this.options = {
       title: {
-        display: false,
-        text: 'My Title',
-        fontSize: 16
+        display: true,
+        text: 'CUMULATIVE CONFIRMED CASES',
+        fontSize: 12,
+        position: 'left'
       },
       legend: {
         display: false,
@@ -101,6 +110,9 @@ export class HomeComponent implements OnInit {
     };
   }
 
+  /**
+   * API call to get data.
+   */
   public getCovidData(): void {
     this.paginator.isLoading = true;
     this.homeService.getCovid19Data().subscribe((data: Covid19Data) => {
@@ -122,6 +134,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Prepares Data for Line Chart.
+   */
   prepareChartsData(): void {
     if (this.chartData && this.chartData.length > 0) {
       const tempData = this.chartData.slice(this.chartData.length - 31, this.chartData.length);
@@ -130,12 +145,12 @@ export class HomeComponent implements OnInit {
         this.lineChartData.datasets[0].data.push(parseInt(element.totalconfirmed, 10));
       });
       this.lineChart.refresh();
-      if (this.innerWidth <= 475) {
-        this.lineChart.chart.height = 170;
-      }
     }
   }
 
+  /**
+   * API call to get district wise data.
+   */
   public getDistrictWiseData(): void {
     this.paginator.isLoading = true;
     this.homeService.getDistrictWiseData().subscribe((data) => {
@@ -150,6 +165,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * @param districtWiseData districtwiseData got from API call
+   * Transforms API data.
+   */
   transformDistrictWiseData(districtWiseData): void {
     for (const [key, value] of Object.entries(districtWiseData)) {
       for (const [key1, value1] of Object.entries(value)) {
@@ -160,10 +180,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * To set last updated on date.
+   */
   lastUpdatedOn(): void {
     this.lastUpdatedDate = moment(this.covid19Data[this.covid19Data.length - 1].lastupdatedtime, 'DD/MM/YYYY, h:mm:ss a').format('Do MMMM YYYY, h:mm:ss a');
   }
 
+  /**
+   * Custom tooltip for Line Chart.
+   */
   buildCustomTooltip(): void {
     this.customTooltips = function(tooltip) {
     // Tooltip Element
@@ -175,11 +201,6 @@ export class HomeComponent implements OnInit {
       tooltipEl.innerHTML = '<table></table>';
       this._chart.canvas.parentNode.appendChild(tooltipEl);
     }
-    // Hide if no tooltip
-    // if (tooltip.opacity === 0) {
-    //   tooltipEl.style.opacity = 0 as any;
-    //   return;
-    // }
     // Set caret Position
     tooltipEl.classList.remove('above', 'below', 'no-transform');
     if (tooltip.yAlign) {
@@ -208,7 +229,6 @@ export class HomeComponent implements OnInit {
         style +
         '"></span>';
         innerHtml += '<tr><td>' + span + body + '</td></tr>';
-        console.log(bodyLines);
       });
       innerHtml += '</tbody>';
       const tableRoot = tooltipEl.querySelector('table');
@@ -221,7 +241,7 @@ export class HomeComponent implements OnInit {
     tooltipEl.style.left = positionX + '6px';
     tooltipEl.style.top = positionY + '6px';
     tooltipEl.style.position = 'absolute';
-    tooltipEl.style['margin-left'] = '43px';
+    tooltipEl.style['margin-left'] = '37px';
     tooltipEl.style.color = '#D35400';
     tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
     tooltipEl.style.fontSize = '15px';
@@ -231,10 +251,6 @@ export class HomeComponent implements OnInit {
     tooltip.xPadding +
     'px';
   };
-  }
-
-  onLazyLoad($event) {
-
   }
 
 }
