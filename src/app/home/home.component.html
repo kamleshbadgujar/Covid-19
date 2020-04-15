@@ -109,6 +109,12 @@
                 <div class="mrg-top">
                     <p-chart #lineChart type="line" [data]="lineChartData" [options]="options"></p-chart>
                 </div>
+                <div class="mrg-top-20">
+                    <p-chart #barChart type="bar" [data]="barChartDisplayData" [options]="barChartOptions"></p-chart>
+                </div>
+                <div class="mrg-top-20">
+                    <p-chart #dailyConfirmedBarChart type="bar" [data]="dailyConfirmedChartDisplayData" [options]="dailyConfirmedChartOptions"></p-chart>
+                </div>
             </div>
         </div>
     </div>

@@ -199,8 +199,29 @@
   margin-bottom: 10px;
 }
 
+.mrg-top-20 {
+  background-color:#F6DDCC;
+  border-radius: 6px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  margin-top: 40px;
+}
+
 @media screen and (max-width: 475px) {
   #chartjs-tooltip {
+    font-size: 8px !important;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  #chartjs-tooltip-bar {
+    font-size: 8px !important;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  #chartjs-tooltip-bar-daily-confirmed {
     font-size: 8px !important;
   }
 }
