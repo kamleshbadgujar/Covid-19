@@ -9,100 +9,117 @@
 </head>
 
 <body>
-    <div class="padding-20">
-        <div class="navbar">
-            <a href="#" class="active">Home</a>
-            <a href="#">Developer</a>
-        </div>
-        <div class="row adjust-width">
-            <div class="header-text">
-                <h1>India Covid-19 Tracker</h1>
-                <p>Inspired by <b> <a target="blank" href="https://www.covid19india.org/"> Covid19 India </a></b></p>
+    <div class="titles">
+        <div class="padding-20">
+            <!-- <div class="navbar">
+                <a href="#" class="active">Home</a>
+                <a href="#">Developer</a>
+            </div> -->
+            <div class="row adjust-width">
+                <div class="header-text">
+                    <h1>INDIA COVID-19 TRACKER</h1>
+                    <p>INSPIRED BY <b> <a target="blank" href="https://www.covid19india.org/"> COVID-19 INDIA </a></b></p>
+                </div>
             </div>
-        </div>
-        <div class="row adjust-width">
-            <div class="confirmed-text">
-                <h4>Confirmed Cases</h4>
-                <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].confirmed : '' }}</h1>
-                <h6> Last updated on {{   lastUpdatedDate  }} </h6>
+            <div class="row adjust-width">
+                <div class="confirmed-text">
+                    <h4>CONFIRMED CASES</h4>
+                    <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].confirmed : '' }}</h1>
+                    <h6> LAST UPDATED ON {{   lastUpdatedDate  }} </h6>
+                </div>
             </div>
-        </div>
-        <div class="row adjust-width">
-            <div class="active-text">
-                <h4>Active Cases</h4>
-                <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].active : '' }} </h1>
+            <div class="row adjust-width">
+                <div class="active-text">
+                    <h4>ACTIVE CASES</h4>
+                    <h1>{{ covid19Data ? covid19Data[covid19Data.length - 1].active : '' }} </h1>
+                </div>
             </div>
         </div>
     </div>
-    <div class="padding-20">
-        <div class="row">
-            <div class="col-md 6">
-                <p-table [columns]="gridColumns" [value]="covid19DisplayData" [lazy]="paginator.isLazyEnabled"
-                    (onLazyLoad)="onLazyLoad($event)" [paginator]="paginator.enable" [loading]="paginator.isLoading"
-                    [resizableColumns]="paginator.isResizable" dataKey="state" [rowHover]="true">
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th *ngFor="let col of columns" [ngStyle]="col.style">
-                                <span>
-                                    {{col.header}}
-                                </span>
-                                <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"
-                        let-expanded="expanded"> 
-                        <tr class="ui-selectable-row">
-                            <td *ngFor="let col of columns" [ngClass]="{'total-field' : index == covid19DisplayData.length - 1}" [ngStyle]="col.style" >  
-                                <div [ngClass]="{'cursor' : index !== covid19DisplayData.length - 1}" [pRowToggler]="rowData"> 
-                                <span *ngIf="col.field === 'blank' && index !== covid19DisplayData.length - 1">
-                                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+    <div class="grid-container">
+        <div class="padding-20">
+            <div class="row">
+                <div class="col-md 6">
+                    <div class="table-heading"> STATE-WISE DATA </div>
+                    <p-table [columns]="gridColumns" [value]="covid19DisplayData"
+                        [paginator]="paginator.enable" [loading]="paginator.isLoading"
+                        [resizableColumns]="paginator.isResizable" dataKey="state" [rowHover]="true">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [ngStyle]="col.style">
+                                    <span *ngIf="innerWidth < 475">
+                                        {{col.mobileHeader}}
                                     </span>
-                                <span>
-                                    {{rowData[col.field]}}
-                                </span>
-                            </div>
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
-                        <tr>
-                            <td [attr.colspan]="columns.length - 1">
-                                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-                                    <p-table [columns]="treeTableColumns" [value]="transformedDistrictWiseData"
-                                        [lazy]="paginator.isLazyEnabled" (onLazyLoad)="onLazyLoad($event)"
-                                        [paginator]="paginator.enable" [loading]="paginator.isLoading"
-                                        [resizableColumns]="paginator.isResizable">
-                                        <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th *ngFor="let col of columns" [style]="col.style">
-                                {{col.header}}
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-treeData let-columns="columns" let-index="rowIndex">
-                        <tr *ngIf="rowData.state === treeData.state">
-                            <td *ngFor="let col of columns" [style]="col.style">
-                                <span>
-                                    {{ treeData[col.field] }}
-                                </span>
-                            </td>
-                        </tr>
-                    </ng-template>
+                                    <span *ngIf="innerWidth > 475">
+                                        {{col.header}}
+                                    </span>
+                                    <!-- <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> -->
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"
+                            let-expanded="expanded">
+                            <tr class="ui-selectable-row">
+                                <td *ngFor="let col of columns"
+                                    [ngClass]="{'total-field' : index == covid19DisplayData.length - 1}"
+                                    [ngStyle]="col.style">
+                                    <div [ngClass]="{'cursor' : index !== covid19DisplayData.length - 1}"
+                                        [pRowToggler]="rowData">
+                                        <span *ngIf="col.field === 'blank' && index !== covid19DisplayData.length - 1">
+                                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                                        </span>
+                                        <span>
+                                            {{rowData[col.field]}}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+                            <tr>
+                                <td [attr.colspan]="columns.length - 1">
+                                    <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                                        <p-table [columns]="treeTableColumns" [value]="transformedDistrictWiseData"
+                                            [paginator]="paginator.enable" [loading]="paginator.isLoading"
+                                            [resizableColumns]="paginator.isResizable">
+                                            <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" [style]="col.style">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-treeData let-columns="columns" let-index="rowIndex">
+                            <tr *ngIf="rowData.state === treeData.state">
+                                <td *ngFor="let col of columns" [style]="col.style">
+                                    <span>
+                                        {{ treeData[col.field] }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                </td>
+                </tr>
+                </ng-template>
                 </p-table>
             </div>
-            </td>
-            </tr>
-            </ng-template>
-            </p-table>
+            <div class="col-md 6">
+                <div class="table-heading"> STATISTICS </div>
+                <div class="mrg-top">
+                    <p-chart #lineChart type="line" [data]="lineChartData" [options]="options"></p-chart>
+                </div>
+                <div class="mrg-top-20">
+                    <p-chart #barChart type="bar" [data]="barChartDisplayData" [options]="barChartOptions"></p-chart>
+                </div>
+                <div class="mrg-top-20">
+                    <p-chart #dailyConfirmedBarChart type="bar" [data]="dailyConfirmedChartDisplayData" [options]="dailyConfirmedChartOptions"></p-chart>
+                </div>
+            </div>
         </div>
-        <div class="col-md 6">
-            <div class="mrg-top">
-            <p-chart #lineChart type="line" [data]="lineChartData" [options]="options"></p-chart>
-        </div>
     </div>
     </div>
-    </div>
-</body>
+    </body>
 
 </html>
