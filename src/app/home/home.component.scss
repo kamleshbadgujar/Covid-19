@@ -181,8 +181,12 @@
     cursor: pointer;
   }
 
-  .ui g {
-    margin-left: 20px !important;
+  .ui-g {
+    margin-left: 15px !important;
+  }
+
+  .ui-table {
+    position: inherit;
   }
 
   .chart-styles {

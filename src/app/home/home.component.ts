@@ -319,7 +319,9 @@ export class HomeComponent implements OnInit {
     for (const [key, value] of Object.entries(districtWiseData)) {
       for (const [key1, value1] of Object.entries(value)) {
         for (const [key2, value2] of Object.entries(value1)) {
+          if (key1 !== 'statecode') {
           this.transformedDistrictWiseData.push({ state: key, district: key2, confirmed: value2['confirmed'] });
+          }
         }
       }
     }
