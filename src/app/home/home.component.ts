@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
           gridLines: { display: false },
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 6
+            maxTicksLimit: 10
           }
         }],
         yAxes: [{
@@ -161,7 +161,7 @@ export class HomeComponent implements OnInit {
           gridLines: { display: false },
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 6
+            maxTicksLimit: 10
           }
         }],
         yAxes: [{
@@ -215,7 +215,7 @@ export class HomeComponent implements OnInit {
           gridLines: { display: false },
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 6
+            maxTicksLimit: 10
           }
         }],
         yAxes: [{
