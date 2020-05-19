@@ -28,9 +28,9 @@ export interface StateWiseCases {
 }
 
 export interface TestingData {
-    _ckd7g: string;
-    source: string;
-    testsconductedbyprivatelabs: string;
+    individualstestedperconfirmedcase: string;
+    positivecasesfromsamplesreported: string;
+    testspermillion: string;
     totalindividualstested: string;
     totalpositivecases: string;
     totalsamplestested: string;

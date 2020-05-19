@@ -260,7 +260,7 @@ export class HomeComponent implements OnInit {
    */
   prepareChartsData(): void {
     if (this.chartData && this.chartData.length > 0) {
-      const tempData = this.chartData.slice(this.chartData.length - 41, this.chartData.length);
+      const tempData = this.chartData.slice(0, this.chartData.length);
       tempData.forEach((element, index) => {
         this.lineChartData.labels.push(element.date);
         this.lineChartData.datasets[0].data.push(parseInt(element.totalconfirmed, 10));
@@ -269,22 +269,18 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.barChartData && this.barChartData.length > 0) {
-      const tempData = this.barChartData.slice(this.barChartData.length - 31, this.barChartData.length);
+      const tempData = this.barChartData.slice(0, this.barChartData.length);
       tempData.forEach((element, index) => {
-        if (element.totalpositivecases !== null && element.totalpositivecases !== '' &&
-          element.totalsamplestested !== null && element.totalsamplestested !== '') {
-          const positiveTested = parseInt(element.totalpositivecases, 10);
-          const totalTested = parseInt(element.totalsamplestested, 10);
-          const testedPerMillion = ((1000000 * totalTested) / this.POPULATION);
+        if (element.testspermillion !== null || element.testspermillion !== '') {
           this.barChartDisplayData.labels.push(moment(element.updatetimestamp, 'DD/MM/YYYY, h:mm:ss a').format('Do MMMM'));
-          this.barChartDisplayData.datasets[0].data.push(parseFloat(testedPerMillion.toFixed(2)));
+          this.barChartDisplayData.datasets[0].data.push(parseInt(element.testspermillion, 10));
         }
       });
       this.barChart.refresh();
     }
 
     if (this.chartData && this.chartData.length > 0) {
-      const tempData = this.chartData.slice(this.chartData.length - 41, this.chartData.length);
+      const tempData = this.chartData.slice(0, this.chartData.length);
       tempData.forEach((element, index) => {
         this.dailyConfirmedChartDisplayData.labels.push(element.date);
         this.dailyConfirmedChartDisplayData.datasets[0].data.push(parseInt(element.dailyconfirmed, 10));
